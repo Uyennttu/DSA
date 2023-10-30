@@ -1,37 +1,36 @@
 package dsa;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class OddTimes {
 	public static void main(String[] args) {
-		int[] array = { 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 100, 400, 15, 15, 15, 15, 15, 15, 15, 15 }; // 21
-		List<Integer> oddTimesNumbers = findOddTimes(array);
-		System.out.println("Found: " + oddTimesNumbers);
-	}
+		int[] array = { 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 100, 400, 15, 15, 15, 15, 15, 15, 15, 15 };
+		Arrays.sort(array); // Onlogn
+		int currentNum = array[0];
+		int count = 0;
+		ArrayList<Integer> oddTimesNumbers = new ArrayList<>(); // On
 
-	public static List<Integer> findOddTimes(int[] array) {
-		int maxValue = findMaxValue(array);
-		int[] new_array = new int[maxValue + 1];
-		for (int value : array) {
-			new_array[value]++;
-		}
-		List<Integer> oddTimesNumbers = new ArrayList<>();
-		for (int i = 0; i < new_array.length; i++) {
-			if (new_array[i] % 2 != 0) {
-				oddTimesNumbers.add(i);
+		for (int num : array) { //On
+			if (num == currentNum) {
+				count++;
+			} else {
+				if (count % 2 != 0) {
+					oddTimesNumbers.add(currentNum);
+				}
+				currentNum = num;
+				count = 1;
 			}
 		}
-		return oddTimesNumbers;
-	}
-
-	public static int findMaxValue(int[] n) {
-		int max = n[0];
-		for (int value : n) {
-			if (value > max) {
-				max = value;
-			}
+		if (count % 2 != 0) {
+			oddTimesNumbers.add(currentNum);
 		}
-		return max;
+
+		System.out.println("Found: ");
+		for (int num : oddTimesNumbers) {
+			System.out.println(num + " ");
+		}
 	}
 }
+//Time: Onlogn
+//Space: On
